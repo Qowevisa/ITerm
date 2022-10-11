@@ -3,7 +3,7 @@
 
 int main()
 {
-    iterm_ask_easy("Test1?");
+    iterm_ask_easy("Test?");
     printf("\n");
     return 0;
 }

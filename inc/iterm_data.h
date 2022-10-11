@@ -19,6 +19,7 @@ typedef struct iterm_ask {
     iterm_str_t ask;
     char yes_symbol;
     char no_symbol;
+    uint8_t def;
 } iterm_ask_t;
 
 void

@@ -1,13 +1,14 @@
 include config.mk
-lib_name = libiterm
-inc_dir = /usr/local/include/
-sources = iterm_data
-tests = test_ask_easy
 OBJ_F = obj
 SRC_F = src
 INC_F = inc
 TEST_F = tests
 TEST_BIN_F = tbin
+inc_dir = /usr/local/include/
+
+lib_name = libiterm
+sources = iterm_data iterm_util
+tests = $(shell ls $(TEST_F) | grep .c | cut -d '.' -f 1)
 
 def: test_all
 	@
@@ -30,11 +31,17 @@ $(TEST_BIN_F):
 $(TEST_F):
 	mkdir ./$@
 
-$(TEST_BIN_F)/% : $(TEST_F)/%.c
+$(TEST_BIN_F)/% : $(TEST_F)/%.c $(lib_name).a
 	$(CC) $< -o $@ $(lib_name).a $(CFLAGS)
 
+rem_tests:
+	$(tests:%=rm ./$(TEST_BIN_F)/%;)
+
+retest: rem_tests test_all
+	@
+
 test_all: $(lib_name).a $(TEST_BIN_F) $(TEST_F) $(tests:%=$(TEST_BIN_F)/%) $(copy_incs)
-	$(tests:%=./$(TEST_BIN_F)/%)
+	$(tests:%=./$(TEST_BIN_F)/%;)
 
 $(OBJ_F):
 	mkdir -p ./$(OBJ_F)

@@ -1,4 +1,5 @@
 #include "../inc/iterm_data.h"
+#include "../inc/iterm_util.h"
 #include <stdio.h>
 
 static inline
@@ -31,7 +32,20 @@ void
 iterm_ask(iterm_ask_t it_ask)
 {
     // ASK? Y/n
-    printf("%s %c/%c", it_ask.ask.str, it_ask.yes_symbol, it_ask.no_symbol);
+    printf("%s %c/%c",
+            it_ask.ask.str,
+            it_ask.yes_symbol - 32*(it_ask.def==0),
+            it_ask.no_symbol - 32*(it_ask.def==1)
+        );
+    toggle_echo();
+    char c;
+    while (1) {
+        c = fgetc(stdin);
+        if (c == it_ask.yes_symbol || c == it_ask.no_symbol) {
+            break;
+        }
+    }
+    toggle_echo();
 }
 
 void
@@ -39,8 +53,9 @@ iterm_ask_easy(const char *str)
 {
     iterm_ask_t it_ask;
     iterm_str_cpy(&it_ask.ask, str);
-    it_ask.yes_symbol = 'Y';
+    it_ask.yes_symbol = 'y';
     it_ask.no_symbol = 'n';
+    it_ask.def = 0;
 
     iterm_ask(it_ask);
 }
