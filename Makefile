@@ -4,7 +4,7 @@ SRC_F = src
 INC_F = inc
 TEST_F = tests
 TEST_BIN_F = tbin
-inc_dir = /usr/local/include/
+inc_dir = /usr/local/include
 
 lib_name = libiterm
 sources = iterm_data iterm_util
@@ -40,7 +40,7 @@ rem_tests:
 retest: rem_tests test_all
 	@
 
-test_all: $(lib_name).a $(TEST_BIN_F) $(TEST_F) $(tests:%=$(TEST_BIN_F)/%) $(copy_incs)
+test_all: $(lib_name).a copy_incs $(TEST_BIN_F) $(TEST_F) $(tests:%=$(TEST_BIN_F)/%) $(copy_incs)
 	$(tests:%=./$(TEST_BIN_F)/%;)
 
 $(OBJ_F):

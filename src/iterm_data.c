@@ -31,7 +31,6 @@ iterm_str_concat(iterm_str_t *it_str, const char *str)
 void
 iterm_ask(iterm_ask_t it_ask)
 {
-    // ASK? Y/n
     printf("%s %c/%c",
             it_ask.ask.str,
             it_ask.yes_symbol - 32*(it_ask.def==0),
@@ -49,13 +48,19 @@ iterm_ask(iterm_ask_t it_ask)
 }
 
 void
-iterm_ask_easy(const char *str)
+iterm_ask_complex(const char *str, const char ys, const char ns, const uint8_t def)
 {
     iterm_ask_t it_ask;
     iterm_str_cpy(&it_ask.ask, str);
-    it_ask.yes_symbol = 'y';
-    it_ask.no_symbol = 'n';
-    it_ask.def = 0;
+    it_ask.yes_symbol = ys;
+    it_ask.no_symbol = ns;
+    it_ask.def = def;
 
     iterm_ask(it_ask);
+}
+
+void
+iterm_ask_easy(const char *str)
+{
+    iterm_ask_complex(str, 'y', 'n', 0);
 }

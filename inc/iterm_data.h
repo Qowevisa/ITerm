@@ -28,4 +28,7 @@ iterm_ask(iterm_ask_t it_ask);
 void
 iterm_ask_easy(const char *str);
 
+void
+iterm_ask_complex(const char *str, const char ys, const char ns, const uint8_t def);
+
 #endif // __iterm_data_h
