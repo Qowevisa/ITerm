@@ -25,7 +25,7 @@ iterm_str_concat(iterm_str_t *it_str, const char *str)
 {
     it_str->size -= (it_str->size > 0);
     it_str_cpy_block(it_str, str);
-    it_str->str[it_str->size++] = '\0'; 
+    it_str->str[it_str->size] = '\0'; 
 }
 
 void
