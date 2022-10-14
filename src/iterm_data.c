@@ -29,7 +29,7 @@ iterm_str_concat(iterm_str_t *it_str, const char *str)
     it_str->str[it_str->size] = '\0'; 
 }
 
-void
+uint8_t
 iterm_ask(iterm_ask_t it_ask)
 {
     printf("%s %c/%c",
@@ -41,14 +41,14 @@ iterm_ask(iterm_ask_t it_ask)
     char c;
     while (1) {
         c = fgetc(stdin);
-        if (c == it_ask.yes_symbol || c == it_ask.no_symbol) {
-            break;
+        if (c == it_ask.yes_symbol || c == it_ask.no_symbol || c == 10) {
+            toggle_echo();
+            return (c == it_ask.no_symbol) || (it_ask.def && (c == 10));
         }
     }
-    toggle_echo();
 }
 
-void
+uint8_t
 iterm_ask_complex(const char *str, const char ys, const char ns, const uint8_t def)
 {
     if (def > 1) { raise_error_int(def, 0, 1); }
@@ -59,11 +59,11 @@ iterm_ask_complex(const char *str, const char ys, const char ns, const uint8_t d
     it_ask.no_symbol = ns;
     it_ask.def = def;
 
-    iterm_ask(it_ask);
+    return iterm_ask(it_ask);
 }
 
-void
+uint8_t
 iterm_ask_easy(const char *str)
 {
-    iterm_ask_complex(str, 'y', 'n', 0);
+    return iterm_ask_complex(str, 'y', 'n', 0);
 }

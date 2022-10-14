@@ -22,13 +22,13 @@ typedef struct iterm_ask {
     uint8_t def;
 } iterm_ask_t;
 
-void
+uint8_t
 iterm_ask(iterm_ask_t it_ask);
 
-void
+uint8_t
 iterm_ask_easy(const char *str);
 
-void
+uint8_t
 iterm_ask_complex(const char *str, const char ys, const char ns, const uint8_t def);
 
 #endif // __iterm_data_h
