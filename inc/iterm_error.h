@@ -3,10 +3,15 @@
 #include <stdint.h>
 
 void
+raise_error_func_code(const char *name, int32_t val, int32_t expect);
+
+void
 raise_error_exp_code(const char *name, int32_t val, int32_t expect);
 
 void
 raise_error_int_code(const char *name, int32_t val, int32_t sr, int32_t er);
+
+#define raise_error_func(fname, val, e) raise_error_func_code(#fname, val, e)
 
 #define raise_error_exp(val, e) raise_error_exp_code(#val, val, e)
 
