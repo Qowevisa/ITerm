@@ -5,8 +5,9 @@ int main()
 {
     START();
 
-    iterm_ask_complex("Test complex", 'l', 'n', 1);
+    int ret = iterm_ask_complex("Test complex", 'l', 'n', 1);
     printf("\n");
+    printf("Return : %d\n", ret);
 
     END();
     return 0;

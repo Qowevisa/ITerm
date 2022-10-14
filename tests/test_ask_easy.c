@@ -5,8 +5,9 @@ int main()
 {
     START();
 
-    iterm_ask_easy("Test?");
+    int ret = iterm_ask_easy("Test?");
     printf("\n");
+    printf("Return : %d\n", ret);
 
     END();
     return 0;
