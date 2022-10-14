@@ -7,7 +7,7 @@ TEST_BIN_F = tbin
 inc_dir = /usr/local/include
 
 lib_name = libiterm
-sources = iterm_data iterm_util
+sources = iterm_data iterm_util iterm_error
 tests = $(shell ls $(TEST_F) | grep .c | cut -d '.' -f 1)
 
 def: test_all

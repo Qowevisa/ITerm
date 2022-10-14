@@ -1,5 +1,6 @@
 #include "../inc/iterm_data.h"
 #include "../inc/iterm_util.h"
+#include "../inc/iterm_error.h"
 #include <stdio.h>
 
 static inline
@@ -50,6 +51,8 @@ iterm_ask(iterm_ask_t it_ask)
 void
 iterm_ask_complex(const char *str, const char ys, const char ns, const uint8_t def)
 {
+    if (def > 1) { raise_error_int(def, 0, 1); }
+
     iterm_ask_t it_ask;
     iterm_str_cpy(&it_ask.ask, str);
     it_ask.yes_symbol = ys;
